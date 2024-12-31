@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تهنئة  محمود حماده</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom, #102235, #182845, #4d739f);
+            color: white;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 10px;
+            font-size: 1.2em;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #0077b6;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0096c7;
+        }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            padding: 20px;
+            text-align: center;
+            display: none;
+        }
+        .popup h2 {
+            font-size: 2em;
+            margin: 10px 0;
+            color: #0d1b2a;
+        }
+        .popup p {
+            margin: 15px 0;
+            font-size: 1.3em;
+            line-height: 1.8;
+            color: #333;
+        }
+        .popup img {
+            width: 70px;
+            margin: 10px auto;
+        }
+        .popup button {
+            padding: 12px 20px;
+            font-size: 1.2em;
+            background-color: #0d1b2a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .popup button:hover {
+            background-color: #415a77;
+        }
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: white;
+            font-size: 1em;
+            opacity: 0.8;
+            animation: fall 10s linear infinite;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🎉 تهنئة  2025 🎉</h1>
+    <p>اكتب اسمك لتلقي رسالة تهنئة خاصة بك من محمود حماده!</p>
+    <input type="text" id="nameInput" placeholder="اكتب اسمك هنا" />
+    <button onclick="showMessage()">عرض التهنئة</button>
+
+    <div class="popup" id="popup">
+        <h2>🎄 تهنئة خاصة! 🎄</h2>
+        <p id="popupMessage"></p>
+        <p style="font-size: 1.2em; font-weight: bold;">محمود حماده يهنئكم من القلب بقدوم 2025 ❤️</p>
+        <button onclick="closePopup()">إغلاق</button>
+    </div>
+
+    <script>
+      const messages = [
+    "يا [name]، سنة جديدة بتبدأ ودايمًا وجودك في حياتنا نعمة كبيرة.<br>كل سنة وانت طيب ومعانا وفي وسطنا.<br>محمود حماده بيقولك خليها سنة كلها نجاح وضحك. ❤️<br>Stay With Me 2025",
+    "يا أغلى الناس [name]، سنة جديدة جاية وكل اللي أتمناه إنها تكون مليانة راحة وسعادة ليك ولعيلتك.<br>محمود حماده بيسلم عليك وبيقولك خلي بالك من نفسك. 🌟<br>Stay With Me 2025",
+    "[name]، كل سنة وأنت طيب ومعانا.<br>انت مش مجرد صاحب، انت عيلة وظهر وأخ.<br>محمود حماده بيقولك خلي السنة دي مليانة خير وتحقيق أحلامك. 🌹<br>Stay With Me 2025",
+    "يا [name]، كل سنة وانت فرحة للي حواليك.<br>ربنا يديم عليك السعادة والرزق والستر.<br>محمود حماده بيسلم عليك وبيقولك خلي السنة دي بداية جديدة لحاجات حلوة. 🎆<br>Stay With Me 2025",
+    "يا غالي [name]، السنة الجديدة جت، وعايز أقولك إن وجودك في حياتنا بيخلينا أقوى وأسعد.<br>محمود حماده بيهنيك ويقولك خليها سنة كلها حب وأمل. ❄️<br>Stay With Me 2025",
+    "حبيب قلبي [name]، سنة جديدة بتعدي، وأنا مش هنسى أقولك قد إيه وجودك في حياتي مفرحني.<br>محمود حماده بيسلم عليك وبيقولك كل سنة وأنت أقرب للي بتحلم بيه. <br>Stay With Me 2025",
+    "يا [name]، مع السنة الجديدة، نفسي أقولك إنك نعمة من ربنا.<br>وأتمنى إن السنة دي تحقق فيها كل اللي نفسك فيه.<br>محمود حماده بيهنيك من قلبه. ❤️<br>Stay With Me 2025",
+    "[name]، دايمًا منور حياتنا وبتخليها أحلى.<br>السنة الجديدة لازم تكون مليانة ضحك ومفاجآت حلوة ليك.<br>محمود حماده بيقولك احنا معاك دايمًا. 🎉<br>Stay With Me 2025",
+    "يا أجمل الناس [name]، مع السنة الجديدة أتمنى ليك راحة بال وسعادة ونجاحات مالهاش نهاية.<br>محمود حماده بيهنيك ويقولك ربنا يخليك لينا. 🌟<br>Stay With Me 2025",
+    "يا [name]، السنة الجديدة مش مجرد أيام، دي فرص جديدة نبنيها مع اللي بنحبهم.<br>محمود حماده بيقولك خليها أحلى سنة معانا. 🌹<br>Stay With Me 2025"
+];
+
+
+
+        function showMessage() {
+            const name = document.getElementById('nameInput').value.trim();
+            const popup = document.getElementById('popup');
+            const popupMessage = document.getElementById('popupMessage');
+
+            if (name) {
+                const randomMessage = messages[Math.floor(Math.random() * messages.length)].replace("[name]", name);
+                popupMessage.innerHTML = randomMessage;
+                popup.style.display = 'block';
+            } else {
+                alert('من فضلك، أدخل اسمك أولاً!');
+            }
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('popup');
+            popup.style.display = 'none';
+        }
+
+        // Generate snowflakes
+        function createSnowflakes() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.textContent = '❄';
+            snowflake.style.left = Math.random() * window.innerWidth + 'px';
+            snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+            snowflake.style.animationDuration = Math.random() * 5 + 5 + 's';
+            document.body.appendChild(snowflake);
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, 10000);
+        }
+
+        setInterval(createSnowflakes, 200);
+    </script>
+</body>
+</html>
